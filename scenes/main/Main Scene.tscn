@@ -31,15 +31,16 @@ offset_bottom = 40.0
 
 [node name="CameraPivot" type="Node3D" parent="CurrentLevel"]
 script = ExtResource("3_bw2ci")
+mouse_sens = 20.0
 
 [node name="Origin" type="MeshInstance3D" parent="CurrentLevel/CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 75, 75)
 
 [node name="Camera3D" type="Camera3D" parent="CurrentLevel/CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 20, 20)
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 15)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CurrentLevel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.83167, 0, 0)
 mesh = SubResource("CapsuleMesh_dep66")
 
-[connection signal="level_loaded" from="." to="CurrentLevel/Player" method="_on_main_scene_level_loaded"]
+[connection signal="level_loaded" from="." to="CurrentLevel/Player" method="_on_level_loaded"]

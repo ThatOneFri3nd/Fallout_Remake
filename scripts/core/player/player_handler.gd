@@ -8,9 +8,9 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
-func _on_main_scene_level_loaded():
+func _on_level_loaded():
 	var player_position: Vector3 = get_node("PlayerSpawn").transform
 	player.position = player_position

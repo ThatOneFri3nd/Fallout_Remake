@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://cctpt3gnwtu22"]
+
+[ext_resource type="Script" path="res://scenes/main/Main Scene.gd" id="1_8cgiu"]
+[ext_resource type="PackedScene" uid="uid://b1eovp444wan6" path="res://scenes/player/Player.tscn" id="2_0m6g3"]
+
+[node name="MainScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8cgiu")
+
+[node name="HUD" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Menu" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CurrentLevel" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CurrentLevel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="Player" parent="CurrentLevel" instance=ExtResource("2_0m6g3")]
+
+[connection signal="level_loaded" from="." to="CurrentLevel/Player" method="_on_main_scene_level_loaded"]

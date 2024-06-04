@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cctpt3gnwtu22"]
+[gd_scene load_steps=5 format=3 uid="uid://cctpt3gnwtu22"]
 
-[ext_resource type="Script" path="res://scenes/main/Main Scene.gd" id="1_8cgiu"]
+[ext_resource type="Script" path="res://scripts/core/main/Main Scene.gd" id="1_8cgiu"]
 [ext_resource type="PackedScene" uid="uid://b1eovp444wan6" path="res://scenes/player/Player.tscn" id="2_0m6g3"]
+[ext_resource type="Script" path="res://scripts/core/main/camera_control.gd" id="3_bw2ci"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dep66"]
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
@@ -24,9 +27,19 @@ offset_bottom = 40.0
 
 [node name="CurrentLevel" type="Node3D" parent="."]
 
-[node name="Camera3D" type="Camera3D" parent="CurrentLevel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
-
 [node name="Player" parent="CurrentLevel" instance=ExtResource("2_0m6g3")]
+
+[node name="CameraPivot" type="Node3D" parent="CurrentLevel"]
+script = ExtResource("3_bw2ci")
+
+[node name="Origin" type="MeshInstance3D" parent="CurrentLevel/CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 75, 75)
+
+[node name="Camera3D" type="Camera3D" parent="CurrentLevel/CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 20, 20)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CurrentLevel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.83167, 0, 0)
+mesh = SubResource("CapsuleMesh_dep66")
 
 [connection signal="level_loaded" from="." to="CurrentLevel/Player" method="_on_main_scene_level_loaded"]

@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var player: Node3D = get_node("Player")
+@onready var player: Node3D = self
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

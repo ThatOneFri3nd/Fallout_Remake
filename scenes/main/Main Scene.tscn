@@ -32,6 +32,8 @@ offset_bottom = 40.0
 [node name="CameraPivot" type="Node3D" parent="CurrentLevel"]
 script = ExtResource("3_bw2ci")
 mouse_sens = 20.0
+camera_acceleration = 1.0
+max_camera_speed = 10.0
 
 [node name="Origin" type="MeshInstance3D" parent="CurrentLevel/CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 75, 75)

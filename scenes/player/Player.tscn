@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1eovp444wan6"]
+
+[ext_resource type="Script" path="res://scripts/core/player/player_handler.gd" id="1_tw4xr"]
+
+[node name="Player" type="Node3D"]
+script = ExtResource("1_tw4xr")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.826403, 0.563079, 0, -0.563079, 0.826403, -0.0227623, 2.34657, 3.18894)
+
+[node name="AudioListener3D" type="AudioListener3D" parent="."]

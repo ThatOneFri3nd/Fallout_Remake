@@ -41,8 +41,8 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 
 [node name="Camera3D" type="Camera3D" parent="CurrentLevel/CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 15)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CurrentLevel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.83167, 0, 0)
+[node name="PlayerStandIn" type="MeshInstance3D" parent="CurrentLevel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.83167, 0.290696, 0)
 mesh = SubResource("CapsuleMesh_dep66")
 
 [connection signal="level_loaded" from="." to="CurrentLevel/Player" method="_on_level_loaded"]

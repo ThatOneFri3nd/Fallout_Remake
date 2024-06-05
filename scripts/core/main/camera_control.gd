@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+#Exported pass-by-value variables
 @export_category("Camera Rotation")
 @export var mouse_sens: float = 20
 @export var rotate_acceleration: float = 15
@@ -8,16 +9,18 @@ extends CharacterBody3D
 @export var camera_acceleration: float = 15
 @export var max_camera_speed: float = 50
 @export var camera_friction: float = 10
+@export_category("Camera Zoom")
+@export var minimum_zoom: float = 1
+@export var maximum_zoom: float = 100
+@export var zoom_speed: float = 10
+@export var zoom_angle_adjustment: float = 10
 
+#Non-exported pass-by-value variables
 var movement_vector := Vector3.ZERO
 var rotation_speed: float = 0.0
 var zoom_level: float = 10.0
-var viewport_minimum: float = 200
-var viewport_resolution_variance = 600
-var viewport_resolution: Vector2
 
-signal rotating_camera
-
+#Non-exported pass-by-reference variables
 var camera: Camera3D
 
 # Called when the node enters the scene tree for the first time.
@@ -27,14 +30,11 @@ func _ready():
 	if camera == null:
 		printerr("Camera not found! Make sure Camera3D is a child of Camera!")
 		return
-	viewport_resolution.x = (camera.size / 100) * viewport_resolution_variance
-	viewport_resolution.y = (camera.size / 100) * viewport_resolution_variance
 
 
 func _input(event):
 	if Input.is_action_pressed("camera_rotate"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		emit_signal("rotating_camera")
 		if event is InputEventMouseMotion:
 			var speed = Input.get_last_mouse_velocity().x * (mouse_sens / 100000)
 			rotation_speed += speed * rotate_acceleration
@@ -46,9 +46,11 @@ func _input(event):
 	
 	if event is InputEventMouseButton:
 		if Input.is_action_just_released("camera_zoom_out"):
-			pass
+			zoom_level -= zoom_speed
 		elif Input.is_action_just_released("camera_zoom_in"):
-			pass
+			zoom_level += zoom_speed
+	
+	zoom_level = clamp(zoom_level, minimum_zoom, maximum_zoom)
 
 
 func _process(delta):
@@ -76,4 +78,3 @@ func _process(delta):
 			rotate_y(rotation_speed * delta)
 		else:
 			rotation_speed = 0.0
-			

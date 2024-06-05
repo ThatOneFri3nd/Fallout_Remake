@@ -29,16 +29,14 @@ offset_bottom = 40.0
 
 [node name="Player" parent="CurrentLevel" instance=ExtResource("2_0m6g3")]
 
-[node name="CameraPivot" type="Node3D" parent="CurrentLevel"]
+[node name="Camera" type="CharacterBody3D" parent="CurrentLevel"]
 script = ExtResource("3_bw2ci")
-mouse_sens = 20.0
-camera_acceleration = 1.0
-max_camera_speed = 10.0
+mouse_sens = 50.0
 
-[node name="Origin" type="MeshInstance3D" parent="CurrentLevel/CameraPivot"]
+[node name="Origin" type="MeshInstance3D" parent="CurrentLevel/Camera"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 75, 75)
 
-[node name="Camera3D" type="Camera3D" parent="CurrentLevel/CameraPivot"]
+[node name="Camera3D" type="Camera3D" parent="CurrentLevel/Camera"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 15)
 
 [node name="PlayerStandIn" type="MeshInstance3D" parent="CurrentLevel"]

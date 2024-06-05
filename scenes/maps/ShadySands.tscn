@@ -7,12 +7,10 @@ albedo_color = Color(0, 1, 1, 1)
 material = SubResource("StandardMaterial3D_f1ako")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jdkuv"]
-load_path = "res://.godot/imported/rocky_trail_nor_gl_4k.png-4094e4b78e6c5fd8214ac75c6e41078f.s3tc.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tboh5"]
-load_path = "res://.godot/imported/rocky_trail_rough_4k.png-afa87d3844289d8b071c2a8182d6b55b.s3tc.ctex"
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxxwd"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2xfuo"]
 albedo_color = Color(0.183999, 0.106796, 0.0159449, 1)
 roughness_texture = SubResource("CompressedTexture2D_tboh5")
 normal_enabled = true
@@ -20,7 +18,7 @@ normal_texture = SubResource("CompressedTexture2D_jdkuv")
 uv1_scale = Vector3(60, 60, 60)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_eld3g"]
-material = SubResource("StandardMaterial3D_jxxwd")
+material = SubResource("StandardMaterial3D_2xfuo")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qln3s"]
 

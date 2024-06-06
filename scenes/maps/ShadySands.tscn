@@ -1,4 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://bc3ts7oesy4l3"]
+[gd_scene load_steps=12 format=3 uid="uid://bc3ts7oesy4l3"]
+
+[ext_resource type="Material" uid="uid://dfeyo8ybjrb4t" path="res://materials/ShadySands.material" id="1_pifjc"]
+[ext_resource type="PackedScene" uid="uid://4vbp7s4cl6d5" path="res://scenes/main/day_night_cycle.tscn" id="2_gf5eb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f1ako"]
 albedo_color = Color(0, 1, 1, 1)
@@ -6,21 +9,10 @@ albedo_color = Color(0, 1, 1, 1)
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_fgsc5"]
 material = SubResource("StandardMaterial3D_f1ako")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jdkuv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uxnxb"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tboh5"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2xfuo"]
-albedo_color = Color(0.183999, 0.106796, 0.0159449, 1)
-roughness_texture = SubResource("CompressedTexture2D_tboh5")
-normal_enabled = true
-normal_texture = SubResource("CompressedTexture2D_jdkuv")
-uv1_scale = Vector3(60, 60, 60)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_eld3g"]
-material = SubResource("StandardMaterial3D_2xfuo")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qln3s"]
+[sub_resource type="BoxMesh" id="BoxMesh_dxmbi"]
+material = SubResource("ShaderMaterial_uxnxb")
 
 [sub_resource type="BoxMesh" id="BoxMesh_raqbr"]
 
@@ -43,11 +35,11 @@ mesh = SubResource("CapsuleMesh_fgsc5")
 skeleton = NodePath("")
 
 [node name="Ground" type="MeshInstance3D" parent="."]
-transform = Transform3D(143.586, 0, 0, 0, 0.220656, 0, 0, 0, 66.2695, 0, 0, 0)
-mesh = SubResource("PlaneMesh_eld3g")
-surface_material_override/0 = SubResource("StandardMaterial3D_qln3s")
+transform = Transform3D(393.72, 0, 0, 0, 0.656368, 0, 0, 0, 298.885, -7.25601, -0.321981, 0)
+mesh = SubResource("BoxMesh_dxmbi")
+surface_material_override/0 = ExtResource("1_pifjc")
 
-[node name="Walls" type="Node" parent="."]
+[node name="Walls" type="Node3D" parent="."]
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -94.2683, 3.31111, -36.4409)
@@ -299,7 +291,7 @@ transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081,
 mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="Gate" type="Node" parent="."]
+[node name="Gate" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Gate"]
 transform = Transform3D(1, 0, 0, 0, 6.57916, 0, 0, 0, 1, -89.1623, 3.31111, -36.4409)
@@ -326,7 +318,7 @@ transform = Transform3D(-4.37114e-08, -6.57916, 0, 1, -2.87584e-07, 0, 0, 0, 1, 
 mesh = SubResource("BoxMesh_raqbr")
 skeleton = NodePath("../..")
 
-[node name="Buildings" type="Node" parent="."]
+[node name="Buildings" type="Node3D" parent="."]
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="Buildings"]
 transform = Transform3D(14.5553, 0, 0, 0, 11.4811, 0, 0, 0, 20.1853, -106.945, -1.90735e-06, -12.1668)
@@ -348,7 +340,7 @@ transform = Transform3D(30.0701, 0, 0, 0, 11.4811, 0, 0, 0, 27.8199, -57.6398, -
 mesh = SubResource("BoxMesh_svyri")
 skeleton = NodePath("../..")
 
-[node name="Obelisk" type="Node" parent="."]
+[node name="Obelisk" type="Node3D" parent="."]
 
 [node name="MeshInstance3D10" type="MeshInstance3D" parent="Obelisk"]
 transform = Transform3D(2.50952, 0, 0, 0, 0.18361, 0, 0, 0, 2.54455, -86.2404, 0, 2.99114)
@@ -359,3 +351,6 @@ skeleton = NodePath("../..")
 transform = Transform3D(1.14545, 0, 0, 0, 8.34935, 0, 0, 0, 1.26112, -86.2404, 0, 2.99114)
 mesh = SubResource("BoxMesh_8nelt")
 skeleton = NodePath("../..")
+
+[node name="DirectionalLight3D" parent="." instance=ExtResource("2_gf5eb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.08607, 27.2372, -2.58927)

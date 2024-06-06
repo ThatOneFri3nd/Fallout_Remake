@@ -10,23 +10,22 @@ extends CharacterBody3D
 @export var max_camera_speed: float = 50
 @export var camera_friction: float = 10
 @export_category("Camera Zoom")
-@export var minimum_zoom: float = 1
-@export var maximum_zoom: float = 100
-@export var zoom_speed: float = 10
-@export var zoom_angle_adjustment: float = 10
+@export_range(0, 1000, 0.1) var min_zoom: float = 90
+@export_range(0, 1000, 0.1) var max_zoom: float = 10
+@export_range(0, 1000, 0.1) var zoom_speed: float = 10
+@export_range(0, 1, 0.1) var zoom_speed_damp: float = 0.5
 
 #Non-exported pass-by-value variables
 var movement_vector := Vector3.ZERO
 var rotation_speed: float = 0.0
-var zoom_level: float = 10.0
+var zoom_direction = 0
 
 #Non-exported pass-by-reference variables
-var camera: Camera3D
+@onready var camera: Camera3D = find_child("Camera3D")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	camera = find_child("Camera3D")
 	if camera == null:
 		printerr("Camera not found! Make sure Camera3D is a child of Camera!")
 		return
@@ -46,14 +45,18 @@ func _input(event):
 	
 	if event is InputEventMouseButton:
 		if Input.is_action_just_released("camera_zoom_out"):
-			zoom_level -= zoom_speed
+			zoom_direction = 1
 		elif Input.is_action_just_released("camera_zoom_in"):
-			zoom_level += zoom_speed
+			zoom_direction = -1
 	
-	zoom_level = clamp(zoom_level, minimum_zoom, maximum_zoom)
-
+	
 
 func _process(delta):
+	move_camera(delta)
+	rotate_camera(delta)
+	zoom_camera(delta)
+
+func move_camera(delta: float):
 	var xz_input = Vector3.ZERO
 	xz_input.z = Input.get_axis("camera_forward", "camera_backward")
 	xz_input.x = Input.get_axis("camera_left", "camera_right")
@@ -67,8 +70,8 @@ func _process(delta):
 	else:
 		movement_vector = movement_vector.move_toward(Vector3.ZERO, camera_friction * delta)
 	translate(movement_vector * delta)
-	
-	# Handle camera rotation with friction
+
+func rotate_camera(delta: float):
 	if Input.is_action_pressed("camera_rotate"):
 		rotation_speed = lerp(rotation_speed, float(0), rotate_friction * delta)
 		rotate_y(rotation_speed * delta)
@@ -78,3 +81,11 @@ func _process(delta):
 			rotate_y(rotation_speed * delta)
 		else:
 			rotation_speed = 0.0
+
+func zoom_camera(delta: float):
+	if camera.position.distance_to(self.position) <= max_zoom:
+		camera.position.move_toward(self.position, delta * zoom_direction)
+	elif camera.position.distance_to(self.position) >= min_zoom:
+		camera.position.move_toward(self.position, delta * zoom_direction)
+	zoom_direction = 0
+	

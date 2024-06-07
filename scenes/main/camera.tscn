@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dd8eiw4julanr"]
+
+[ext_resource type="Script" path="res://scripts/core/player/camera_control.gd" id="1_uelis"]
+
+[node name="Camera" type="CharacterBody3D"]
+script = ExtResource("1_uelis")
+mouse_sens = 1.5
+camera_acceleration = 20.0
+max_camera_speed = 30.0
+camera_friction = 37.0
+min_zoom = 44.1
+zoom_sharpness = 23.2
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 15)

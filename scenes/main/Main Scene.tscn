@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/core/main/Main Scene.gd" id="1_8cgiu"]
 [ext_resource type="PackedScene" uid="uid://b1eovp444wan6" path="res://scenes/player/Player.tscn" id="2_0m6g3"]
-[ext_resource type="Script" path="res://scripts/core/main/camera_control.gd" id="3_bw2ci"]
+[ext_resource type="PackedScene" uid="uid://dd8eiw4julanr" path="res://scenes/main/camera.tscn" id="3_w3j88"]
 [ext_resource type="PackedScene" uid="uid://bc3ts7oesy4l3" path="res://scenes/maps/ShadySands.tscn" id="4_yt2d4"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dep66"]
@@ -30,21 +30,10 @@ offset_bottom = 40.0
 
 [node name="Player" parent="CurrentLevel" instance=ExtResource("2_0m6g3")]
 
-[node name="Camera" type="CharacterBody3D" parent="CurrentLevel"]
-script = ExtResource("3_bw2ci")
-mouse_sens = 1.5
-camera_acceleration = 20.0
-max_camera_speed = 30.0
-camera_friction = 37.0
-
-[node name="Origin" type="MeshInstance3D" parent="CurrentLevel/Camera"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 75, 75)
-
-[node name="Camera3D" type="Camera3D" parent="CurrentLevel/Camera"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 15)
+[node name="Camera" parent="CurrentLevel" instance=ExtResource("3_w3j88")]
 
 [node name="PlayerStandIn" type="MeshInstance3D" parent="CurrentLevel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.83167, 0.290696, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.83167, 1.06002, 0)
 mesh = SubResource("CapsuleMesh_dep66")
 
 [node name="ShadySands" parent="CurrentLevel" instance=ExtResource("4_yt2d4")]

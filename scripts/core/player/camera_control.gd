@@ -2,26 +2,27 @@ extends CharacterBody3D
 
 #Exported pass-by-value variables
 @export_category("Camera Rotation")
-@export var mouse_sens: float = 20
-@export var rotate_acceleration: float = 15
-@export var rotate_friction: float = 10
+@export_range(0, 100, 0.1) var mouse_sens: float = 20
+@export_range(0, 100, 0.1) var rotate_acceleration: float = 15
+@export_range(0, 100, 0.1) var rotate_friction: float = 10
 @export_category("Camera Movement")
-@export var camera_acceleration: float = 15
-@export var max_camera_speed: float = 50
-@export var camera_friction: float = 10
+@export_range(0, 100, 0.1) var camera_acceleration: float = 15
+@export_range(0, 100, 0.1) var max_camera_speed: float = 50
+@export_range(0, 100, 0.1) var camera_friction: float = 10
 @export_category("Camera Zoom")
-@export_range(0, 1000, 0.1) var min_zoom: float = 90
-@export_range(0, 1000, 0.1) var max_zoom: float = 10
-@export_range(0, 1000, 0.1) var zoom_speed: float = 10
-@export_range(0, 1, 0.1) var zoom_speed_damp: float = 0.5
+@export_range(0, 100, 0.1) var min_zoom: float = 90
+@export_range(0, 100, 0.1) var max_zoom: float = 10
+@export_range(0, 100, 0.1) var zoom_speed_percentage: float = 10
+@export_range(0, 100, 0.1) var zoom_sharpness: float = 50
+
+#Non-exported pass-by-reference variables
+@onready var camera: Camera3D = find_child("Camera3D")
 
 #Non-exported pass-by-value variables
 var movement_vector := Vector3.ZERO
 var rotation_speed: float = 0.0
-var zoom_direction = 0
-
-#Non-exported pass-by-reference variables
-@onready var camera: Camera3D = find_child("Camera3D")
+var current_zoom: float = 0.5
+@onready var zoom_speed: float = zoom_speed_percentage / 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -44,12 +45,11 @@ func _input(event):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 	if event is InputEventMouseButton:
-		if Input.is_action_just_released("camera_zoom_out"):
-			zoom_direction = 1
-		elif Input.is_action_just_released("camera_zoom_in"):
-			zoom_direction = -1
-	
-	
+		if Input.is_action_just_released("camera_zoom_in"):
+			current_zoom += zoom_speed
+		elif Input.is_action_just_released("camera_zoom_out"):
+			current_zoom -= zoom_speed
+		current_zoom = clamp(current_zoom, 0, 1)
 
 func _process(delta):
 	move_camera(delta)
@@ -83,9 +83,10 @@ func rotate_camera(delta: float):
 			rotation_speed = 0.0
 
 func zoom_camera(delta: float):
-	if camera.position.distance_to(self.position) <= max_zoom:
-		camera.position.move_toward(self.position, delta * zoom_direction)
-	elif camera.position.distance_to(self.position) >= min_zoom:
-		camera.position.move_toward(self.position, delta * zoom_direction)
-	zoom_direction = 0
-	
+	var camera_distance = lerp(min_zoom, max_zoom, current_zoom)
+	camera.position = linear_follow(camera.position, camera.position.normalized() * camera_distance, delta)
+	print(camera_distance)
+	#This is not frame-rate independent
+
+func linear_follow(a, b, delta: float):
+	return b + (a - b) * exp(-zoom_sharpness * delta)

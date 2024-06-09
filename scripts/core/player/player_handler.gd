@@ -18,7 +18,7 @@ func _input(event):
 		move_player(target_position)
 
 func raycast():
-	var camera: Camera3D = get_node("Camera").find_child("Camera3D")
+	var camera: Camera3D = get_node("../Camera/Camera3D")
 	if camera == null:
 		printerr("Error! Can't find Camera3D!")
 	var interact_pos = get_viewport().get_interact_position()
@@ -32,7 +32,7 @@ func raycast():
 	ray_query.to = to
 	
 	var result = space.intersect_ray(ray_query)
-	
+	print(result)
 	return result
 
 func move_player(target_position):

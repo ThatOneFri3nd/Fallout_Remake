@@ -29,6 +29,7 @@ offset_bottom = 40.0
 [node name="CurrentLevel" type="Node3D" parent="."]
 
 [node name="Player" parent="CurrentLevel" instance=ExtResource("2_0m6g3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.913894, 0)
 
 [node name="Camera" parent="CurrentLevel" instance=ExtResource("3_w3j88")]
 

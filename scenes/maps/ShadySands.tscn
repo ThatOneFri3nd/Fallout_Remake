@@ -1,8 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://bc3ts7oesy4l3"]
+[gd_scene load_steps=14 format=3 uid="uid://bc3ts7oesy4l3"]
 
 [ext_resource type="Material" uid="uid://dfeyo8ybjrb4t" path="res://materials/ShadySands.material" id="1_pifjc"]
 [ext_resource type="PackedScene" uid="uid://4vbp7s4cl6d5" path="res://scenes/main/day_night_cycle.tscn" id="2_gf5eb"]
-[ext_resource type="PackedScene" uid="uid://b1eovp444wan6" path="res://scenes/player/Player.tscn" id="3_o2awv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f1ako"]
 albedo_color = Color(0, 1, 1, 1)
@@ -371,5 +370,3 @@ skeleton = NodePath("../..")
 
 [node name="DirectionalLight3D" parent="." instance=ExtResource("2_gf5eb")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.08607, 27.2372, -2.58927)
-
-[node name="Player" parent="." instance=ExtResource("3_o2awv")]

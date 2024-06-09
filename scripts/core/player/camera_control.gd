@@ -85,7 +85,6 @@ func rotate_camera(delta: float):
 func zoom_camera(delta: float):
 	var camera_distance = lerp(min_zoom, max_zoom, current_zoom)
 	camera.position = linear_follow(camera.position, camera.position.normalized() * camera_distance, delta)
-	print(camera_distance)
 	#This is not frame-rate independent
 
 func linear_follow(a, b, delta: float):

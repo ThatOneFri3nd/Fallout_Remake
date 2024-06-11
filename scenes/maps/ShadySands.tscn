@@ -1,7 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://bc3ts7oesy4l3"]
+[gd_scene load_steps=19 format=3 uid="uid://bc3ts7oesy4l3"]
 
+[ext_resource type="Texture2D" uid="uid://nlbp2ktlnm4x" path="res://Art/2D/Temp Textures/Ground/3_diffuseOriginal.bmp" id="1_12xj0"]
 [ext_resource type="Material" uid="uid://dfeyo8ybjrb4t" path="res://materials/ShadySands.material" id="1_pifjc"]
 [ext_resource type="PackedScene" uid="uid://4vbp7s4cl6d5" path="res://scenes/main/day_night_cycle.tscn" id="2_gf5eb"]
+[ext_resource type="Texture2D" uid="uid://beak1ls2uayu4" path="res://Art/2D/Temp Textures/Ground/3_normal.bmp" id="2_oryl1"]
+[ext_resource type="Texture2D" uid="uid://clw5l0f286dcn" path="res://Art/2D/Temp Textures/Ground/3_ao.bmp" id="3_1ps14"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f1ako"]
 albedo_color = Color(0, 1, 1, 1)
@@ -13,10 +16,14 @@ material = SubResource("StandardMaterial3D_f1ako")
 vertices = PackedVector3Array(-203.616, 0.349835, -148.943, -203.616, 0.349835, 149.057, 189.134, 0.349835, 149.057, 189.134, 0.349835, -148.943)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uxnxb"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qkm0o"]
+albedo_texture = ExtResource("1_12xj0")
+roughness_texture = ExtResource("3_1ps14")
+normal_enabled = true
+normal_texture = ExtResource("2_oryl1")
+uv1_scale = Vector3(39, 39, 39)
 
-[sub_resource type="BoxMesh" id="BoxMesh_dxmbi"]
-material = SubResource("ShaderMaterial_uxnxb")
+[sub_resource type="PlaneMesh" id="PlaneMesh_3lspm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y02yp"]
 
@@ -49,8 +56,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 0)
 navigation_mesh = SubResource("NavigationMesh_vka01")
 
 [node name="Ground" type="MeshInstance3D" parent="Ground"]
-transform = Transform3D(393.72, 0, 0, 0, 0.656368, 0, 0, 0, 298.885, -7.25601, -0.321981, 0)
-mesh = SubResource("BoxMesh_dxmbi")
+transform = Transform3D(565.478, 0, 0, 0, 0.656368, 0, 0, 0, 504.109, -7.25601, -0.321981, 0)
+material_override = SubResource("StandardMaterial3D_qkm0o")
+mesh = SubResource("PlaneMesh_3lspm")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("1_pifjc")
 
@@ -822,5 +830,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 11.8416, 31.523, -1.90735e-06, 6
 mesh = SubResource("BoxMesh_4ei1s")
 
 [node name="DirectionalLight3D" parent="." instance=ExtResource("2_gf5eb")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.08607, 27.2372, -2.58927)
-visible = false
+transform = Transform3D(-4.08414e-08, 0.356379, -0.934341, 1.55778e-08, 0.934341, 0.356379, 1, 8.88178e-16, -4.37114e-08, -1.08607, 27.2372, -2.58927)
+light_color = Color(0.996078, 1, 0.898039, 1)
+light_energy = 0.141

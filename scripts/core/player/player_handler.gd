@@ -47,7 +47,6 @@ func raycast():
 
 func move_player(interact_result):
 	navigation_agent.target_position = interact_result.position
-	print(navigation_agent.target_position)
 
 func _on_level_loaded():
 	var player_spawn: Vector3 = get_node("PlayerSpawn").transform

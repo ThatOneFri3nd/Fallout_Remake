@@ -9,6 +9,8 @@ extends CharacterBody3D
 @export_range(0, 100, 0.1) var camera_acceleration: float = 15
 @export_range(0, 100, 0.1) var max_camera_speed: float = 50
 @export_range(0, 100, 0.1) var camera_friction: float = 10
+##How much the cmaera movement is influenced by zoom, this affects both max speed and acceleration.
+@export_range(0, 100, 0.1) var zoom_influence: float = 10
 @export_category("Camera Zoom")
 @export_range(0, 100, 0.1) var min_zoom: float = 90
 @export_range(0, 100, 0.1) var max_zoom: float = 10
@@ -22,6 +24,7 @@ extends CharacterBody3D
 var movement_vector := Vector3.ZERO
 var rotation_speed: float = 0.0
 var current_zoom: float = 0.5
+var current_camera_distance: float
 @onready var zoom_speed: float = zoom_speed_percentage / 100
 
 # Called when the node enters the scene tree for the first time.
@@ -30,6 +33,8 @@ func _ready():
 	if camera == null:
 		printerr("Camera not found! Make sure Camera3D is a child of Camera!")
 		return
+	
+	current_camera_distance = lerp(min_zoom, max_zoom, current_zoom)
 
 
 func _input(event):
@@ -62,11 +67,11 @@ func move_camera(delta: float):
 	xz_input.x = Input.get_axis("camera_left", "camera_right")
 	
 	xz_input = xz_input.limit_length(1.0)
-	xz_input *= max_camera_speed
+	xz_input *= ((max_camera_speed / 100) * (current_camera_distance * zoom_influence))
 	xz_input.y = 0 # Maintain the y component at 0 to avoid vertical movement
 	
 	if xz_input.length() > 0:
-		movement_vector = movement_vector.move_toward(xz_input, camera_acceleration * delta)
+		movement_vector = movement_vector.move_toward(xz_input, ((camera_acceleration / 100) * delta) * (current_camera_distance * zoom_influence))
 	else:
 		movement_vector = movement_vector.move_toward(Vector3.ZERO, camera_friction * delta)
 	translate(movement_vector * delta)
@@ -85,7 +90,11 @@ func rotate_camera(delta: float):
 func zoom_camera(delta: float):
 	var camera_distance = lerp(min_zoom, max_zoom, current_zoom)
 	camera.position = linear_follow(camera.position, camera.position.normalized() * camera_distance, delta)
-	#This is not frame-rate independent
+	print(camera_distance)
+	set_camera_distance(camera_distance)
+
+func set_camera_distance(camera_distance):
+	current_camera_distance = camera_distance
 
 func linear_follow(a, b, delta: float):
 	return b + (a - b) * exp(-zoom_sharpness * delta)

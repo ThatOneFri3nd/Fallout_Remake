@@ -1,10 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://bc3ts7oesy4l3"]
+[gd_scene load_steps=22 format=3 uid="uid://bc3ts7oesy4l3"]
 
 [ext_resource type="Texture2D" uid="uid://nlbp2ktlnm4x" path="res://Art/2D/Temp Textures/Ground/3_diffuseOriginal.bmp" id="1_12xj0"]
 [ext_resource type="Material" uid="uid://dfeyo8ybjrb4t" path="res://materials/ShadySands.material" id="1_pifjc"]
-[ext_resource type="PackedScene" uid="uid://4vbp7s4cl6d5" path="res://scenes/main/day_night_cycle.tscn" id="2_gf5eb"]
 [ext_resource type="Texture2D" uid="uid://beak1ls2uayu4" path="res://Art/2D/Temp Textures/Ground/3_normal.bmp" id="2_oryl1"]
 [ext_resource type="Texture2D" uid="uid://clw5l0f286dcn" path="res://Art/2D/Temp Textures/Ground/3_ao.bmp" id="3_1ps14"]
+[ext_resource type="Shader" path="res://scenes/Shaders/Skybox.gdshader" id="5_m4733"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f1ako"]
 albedo_color = Color(0, 1, 1, 1)
@@ -41,6 +41,18 @@ uv1_scale = Vector3(39, 39, 39)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4ei1s"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_djkdo"]
+shader = ExtResource("5_m4733")
+shader_parameter/skyColor = Color(0.67451, 1, 1, 1)
+shader_parameter/horizonColor = Color(0.599349, 0.820766, 0.719141, 1)
+
+[sub_resource type="Sky" id="Sky_s433p"]
+sky_material = SubResource("ShaderMaterial_djkdo")
+
+[sub_resource type="Environment" id="Environment_kyq1g"]
+background_mode = 2
+sky = SubResource("Sky_s433p")
+
 [node name="ShadySands" type="Node3D"]
 
 [node name="PlayerSpawn" type="Node3D" parent="."]
@@ -67,769 +79,779 @@ surface_material_override/0 = ExtResource("1_pifjc")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Ground/StaticBody3D"]
 shape = SubResource("BoxShape3D_y02yp")
 
-[node name="Walls" type="Node3D" parent="."]
+[node name="World Objects" type="Node3D" parent="."]
+transform = Transform3D(-0.883283, -0.428887, -0.189386, -0.46884, 0.808013, 0.356798, 0, 0.403945, -0.914783, 0, 0, 0)
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Walls"]
+[node name="Walls" type="Node3D" parent="World Objects"]
+transform = Transform3D(-0.883283, -0.46884, -1.49012e-08, -0.428887, 0.808013, 0.403945, -0.189386, 0.356798, -0.914783, 0, 0, 0)
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -94.2683, 3.31111, -36.4409)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D4"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D4"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -104.341, 3.31111, -36.4409)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D5"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D5"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -114.455, 3.31111, -36.4409)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D6"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D20" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D6"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D20" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -94.2683, 3.31111, 44.4802)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D20"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D21" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D20"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D21" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -104.341, 3.31111, 44.4802)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D21"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D22" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D21"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D22" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -114.455, 3.31111, 44.4802)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D22"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D23" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D22"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D23" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -64.0084, 3.31111, 44.4802)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D23"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D24" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D23"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D24" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -74.0808, 3.31111, 44.4802)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D24"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D25" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D24"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D25" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -84.1955, 3.31111, 44.4802)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D25"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D26" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D25"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D26" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -33.7212, 3.31111, 44.4802)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D26"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D41" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D26"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D41" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -33.7212, 3.31111, 44.4802)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D41"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D27" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D41"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D27" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -43.7937, 3.31111, 44.4802)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D27"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D28" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D27"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D28" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -53.9083, 3.31111, 44.4802)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D28"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D42" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D28"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D42" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -23.7659, 3.31111, 44.4802)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D42"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D44" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D42"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D44" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -3.55119, 3.31111, 44.4802)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D44"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D46" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D44"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D46" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, -0.713442, 0, 6.57916, 0, 9.1869, 0, -3.11855e-08, 1.49132, 3.31111, 49.5807)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D46"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D47" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D46"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D47" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, -0.713442, 0, 6.57916, 0, 9.1869, 0, -3.11855e-08, 1.49132, 3.31111, 59.7803)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D47"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D48" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D47"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D48" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, -0.713442, 0, 6.57916, 0, 9.1869, 0, -3.11855e-08, 1.49132, 3.31111, 69.8404)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D48"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D49" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D48"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D49" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, -0.713442, 0, 6.57916, 0, 9.1869, 0, -3.11855e-08, 1.49132, 3.31111, 79.8332)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D49"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D51" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D49"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D51" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, 6.59309, 3.31111, 84.8739)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D51"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D52" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D51"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D52" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, 16.7135, 3.31111, 84.8739)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D52"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D53" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D52"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D53" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, 26.8938, 3.31111, 84.8739)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D53"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D54" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D53"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D54" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, 36.9787, 3.31111, 84.8739)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D54"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D55" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D54"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D55" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, 0.713442, 0, 6.57916, 0, -9.1869, 0, -3.11855e-08, 42.0645, 3.31111, 79.8008)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D55"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D56" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D55"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D56" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, 0.713442, 0, 6.57916, 0, -9.1869, 0, -3.11855e-08, 42.0645, 3.31111, 69.7858)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D56"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D57" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D56"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D57" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, 0.713442, 0, 6.57916, 0, -9.1869, 0, -3.11855e-08, 42.0645, 3.31111, 59.6672)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D57"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D58" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D57"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D58" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, 0.713442, 0, 6.57916, 0, -9.1869, 0, -3.11855e-08, 42.0645, 3.31111, 50.8263)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D58"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D59" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D58"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D59" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, 47.1535, 3.31111, 46.0459)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D59"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D64" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D59"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D64" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, 55.2051, 3.31111, 46.0459)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D64"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D64"]
 transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267029)
 mesh = SubResource("CylinderMesh_trxkn")
-skeleton = NodePath("../../..")
+skeleton = NodePath("../../../..")
 
-[node name="MeshInstance3D45" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D45" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -13.6658, 3.31111, 44.4802)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D45"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D12" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D45"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, 0.713442, 0, 6.57916, 0, -9.1869, 0, -3.11856e-08, -119.51, 3.31111, -31.3768)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D12"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D13" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D12"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D13" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, 0.713442, 0, 6.57916, 0, -9.1869, 0, -3.11856e-08, -119.51, 3.31111, -21.2495)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D13"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D14" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D13"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D14" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, 0.713442, 0, 6.57916, 0, -9.1869, 0, -3.11856e-08, -119.51, 3.31111, -11.1288)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D14"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D15" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D14"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D15" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, 0.713442, 0, 6.57916, 0, -9.1869, 0, -3.11856e-08, -119.51, 3.31111, -0.974456)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D15"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D16" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D15"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D16" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, 0.713442, 0, 6.57916, 0, -9.1869, 0, -3.11856e-08, -119.51, 3.31111, 9.14045)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D16"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D17" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D16"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D17" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, 0.713442, 0, 6.57916, 0, -9.1869, 0, -3.11856e-08, -119.51, 3.31111, 19.2245)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D17"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D18" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D17"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D18" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, 0.713442, 0, 6.57916, 0, -9.1869, 0, -3.11856e-08, -119.51, 3.31111, 29.3274)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D18"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D19" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D18"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D19" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, 0.713442, 0, 6.57916, 0, -9.1869, 0, -3.11856e-08, -119.51, 3.31111, 39.4266)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D19"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D19"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-9.1869, 0, -6.23711e-08, 0, 6.57916, 0, 8.03144e-07, 0, -0.713442, -76.4756, 3.31111, -36.4409)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D7"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D8" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D7"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-9.1869, 0, -6.23711e-08, 0, 6.57916, 0, 8.03144e-07, 0, -0.713442, -66.3841, 3.31111, -36.4409)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D8"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D9" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D8"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-9.1869, 0, -6.23711e-08, 0, 6.57916, 0, 8.03144e-07, 0, -0.713442, -56.318, 3.31111, -36.4409)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D9"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D10" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D9"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-9.1869, 0, -6.23711e-08, 0, 6.57916, 0, 8.03144e-07, 0, -0.713442, -46.2292, 3.31111, -36.4409)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D10"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D11" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D10"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-9.1869, 0, -6.23711e-08, 0, 6.57916, 0, 8.03144e-07, 0, -0.713442, -36.076, 3.31111, -36.4409)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D11"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D29" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D11"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D29" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, -0.713442, 0, 6.57916, 0, 9.1869, 0, -3.11855e-08, -31.0323, 3.31111, -31.3823)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D29"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D30" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D29"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D30" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, -0.713442, 0, 6.57916, 0, 9.1869, 0, -3.11855e-08, -31.0323, 3.31111, -21.3442)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D30"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D31" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D30"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D31" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -25.9536, 3.31111, -16.3088)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D31"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D32" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D31"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D32" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -15.8359, 3.31111, -16.3088)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D32"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D33" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D32"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D33" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -5.76988, 3.31111, -16.3088)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D33"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D34" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D33"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D34" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, -5.76988, 3.31111, -16.3088)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D34"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D35" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D34"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D35" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, 4.31204, 3.31111, -16.3088)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D35"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D36" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D35"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D36" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, 14.4297, 3.31111, -16.3088)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D36"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D37" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D36"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D37" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, 24.4958, 3.31111, -16.3088)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D37"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D38" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D37"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D38" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, 34.5645, 3.31111, -16.3088)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D38"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D39" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D38"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D39" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, 44.6822, 3.31111, -16.3088)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D39"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D40" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D39"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D40" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(9.1869, 0, 0, 0, 6.57916, 0, 0, 0, 0.713442, 54.7482, 3.31111, -16.3088)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D40"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D43" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D40"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D43" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, -0.713442, 0, 6.57916, 0, 9.1869, 0, -3.11855e-08, 59.6974, 3.31111, -11.2748)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D43"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D50" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D43"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D50" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, -0.713442, 0, 6.57916, 0, 9.1869, 0, -3.11855e-08, 59.6974, 3.31111, -1.1834)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D50"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D60" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D50"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D60" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, -0.713442, 0, 6.57916, 0, 9.1869, 0, -3.11855e-08, 59.6974, 3.31111, 8.88682)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D60"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D61" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D60"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D61" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, -0.713442, 0, 6.57916, 0, 9.1869, 0, -3.11855e-08, 59.6974, 3.31111, 18.955)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D61"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D62" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D61"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D62" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, -0.713442, 0, 6.57916, 0, 9.1869, 0, -3.11855e-08, 59.6974, 3.31111, 29.0367)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D62"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D63" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D62"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D63" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, -0.713442, 0, 6.57916, 0, 9.1869, 0, -3.11855e-08, 59.6974, 3.31111, 39.0813)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D63"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D65" type="MeshInstance3D" parent="Walls"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D63"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D65" type="MeshInstance3D" parent="World Objects/Walls"]
 transform = Transform3D(-4.01572e-07, 0, -0.713442, 0, 6.57916, 0, 9.1869, 0, -3.11855e-08, 59.6974, 3.31111, 49.0845)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Walls/MeshInstance3D65"]
-transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
-mesh = SubResource("CylinderMesh_trxkn")
 skeleton = NodePath("../../..")
 
-[node name="Gate" type="Node3D" parent="."]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Walls/MeshInstance3D65"]
+transform = Transform3D(0.108851, 0, 0, 0, 0.999976, 0, 0, 0, 1.40165, -0.55081, -0.503272, -0.0267067)
+mesh = SubResource("CylinderMesh_trxkn")
+skeleton = NodePath("../../../..")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Gate"]
+[node name="Gate" type="Node3D" parent="World Objects"]
+transform = Transform3D(-0.883283, -0.46884, -1.49012e-08, -0.428887, 0.808013, 0.403945, -0.189386, 0.356798, -0.914783, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World Objects/Gate"]
 transform = Transform3D(1, 0, 0, 0, 6.57916, 0, 0, 0, 1, -89.1623, 3.31111, -36.4409)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Gate"]
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="World Objects/Gate"]
 transform = Transform3D(0.513518, 2.81636, 0, -0.456195, 3.17025, 0, 0, 0, 1, -87.54, 4.60639, -36.4409)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="Gate"]
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="World Objects/Gate"]
 transform = Transform3D(0.5184, -2.78206, 0, 0.450639, 3.20039, 0, 0, 0, 1, -82.7711, 4.60639, -36.4409)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Gate"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="World Objects/Gate"]
 transform = Transform3D(1, 0, 0, 0, 6.57916, 0, 0, 0, 1, -81.5842, 3.31204, -36.4409)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Gate"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="World Objects/Gate"]
 transform = Transform3D(-4.37114e-08, -6.57916, 0, 1, -2.87584e-07, 0, 0, 0, 1, -85.3723, 6.09584, -36.4378)
 mesh = SubResource("BoxMesh_raqbr")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="Buildings" type="Node3D" parent="."]
+[node name="Buildings" type="Node3D" parent="World Objects"]
+transform = Transform3D(-0.883283, -0.46884, -1.49012e-08, -0.428887, 0.808013, 0.403945, -0.189386, 0.356798, -0.914783, 0, 0, 0)
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Buildings"]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="World Objects/Buildings"]
 transform = Transform3D(14.5553, 0, 0, 0, 11.4811, 0, 0, 0, 20.1853, -106.945, -1.90735e-06, -12.1668)
 mesh = SubResource("BoxMesh_svyri")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D8" type="MeshInstance3D" parent="Buildings"]
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="World Objects/Buildings"]
 transform = Transform3D(-7.25425e-07, 0, 24.5134, 0, 11.4811, 0, -16.5958, 0, -1.07151e-06, -64.0144, -5.72205e-06, -26.5499)
 mesh = SubResource("BoxMesh_svyri")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D10" type="MeshInstance3D" parent="Buildings"]
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="World Objects/Buildings"]
 transform = Transform3D(-3.63168e-07, 0, 8.62763, 0, 10.7396, 0, -8.30832, 0, -3.77124e-07, -40.8895, -9.53674e-06, -17.3247)
 mesh = SubResource("BoxMesh_svyri")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D12" type="MeshInstance3D" parent="Buildings"]
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="World Objects/Buildings"]
 transform = Transform3D(-3.63168e-07, 0, 10.9082, 0, 10.7396, 0, -8.30832, 0, -4.76811e-07, 21.6566, -9.53674e-06, 74.9779)
 mesh = SubResource("BoxMesh_svyri")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Buildings"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Buildings"]
 transform = Transform3D(12.5379, 0, 0, 0, 11.4811, 0, 0, 0, 14.1489, -106.793, -1.90735e-06, 29.1167)
 mesh = SubResource("BoxMesh_svyri")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D9" type="MeshInstance3D" parent="Buildings"]
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="World Objects/Buildings"]
 transform = Transform3D(30.0701, 0, 0, 0, 11.4811, 0, 0, 0, 27.8199, -57.6398, -1.90735e-06, 22.0067)
 mesh = SubResource("BoxMesh_svyri")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D11" type="MeshInstance3D" parent="Buildings"]
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="World Objects/Buildings"]
 transform = Transform3D(30.0701, 0, 0, 0, 11.4811, 0, 0, 0, 17.3255, 5.2208, 1.90735e-06, 11.0081)
 mesh = SubResource("BoxMesh_svyri")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="Obelisk" type="Node3D" parent="."]
+[node name="Obelisk" type="Node3D" parent="World Objects"]
+transform = Transform3D(-0.883283, -0.46884, -1.49012e-08, -0.428887, 0.808013, 0.403945, -0.189386, 0.356798, -0.914783, 0, 0, 0)
 
-[node name="MeshInstance3D10" type="MeshInstance3D" parent="Obelisk"]
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="World Objects/Obelisk"]
 transform = Transform3D(2.50952, 0, 0, 0, 0.18361, 0, 0, 0, 2.54455, -86.2404, 0, 2.99114)
 mesh = SubResource("CylinderMesh_3ia62")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D11" type="MeshInstance3D" parent="Obelisk"]
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="World Objects/Obelisk"]
 transform = Transform3D(1.14545, 0, 0, 0, 8.34935, 0, 0, 0, 1.26112, -86.2404, 0, 2.99114)
 mesh = SubResource("BoxMesh_8nelt")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="Fence" type="Node3D" parent="."]
+[node name="Fence" type="Node3D" parent="World Objects"]
+transform = Transform3D(-0.883283, -0.46884, -1.49012e-08, -0.428887, 0.808013, 0.403945, -0.189386, 0.356798, -0.914783, 0, 0, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Fence"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World Objects/Fence"]
 transform = Transform3D(0.23098, 0, 0, 0, 1, 0, 0, 0, 17.7275, 28.2766, 0.802964, 14.2464)
 mesh = SubResource("BoxMesh_aufi4")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Fence"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="World Objects/Fence"]
 transform = Transform3D(0.23098, 0, 0, 0, 1, 0, 0, 0, 17.7275, 52.3748, 0.802964, 14.2464)
 mesh = SubResource("BoxMesh_aufi4")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Fence"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="World Objects/Fence"]
 transform = Transform3D(-1.00965e-08, 0, -24.0529, 0, 1, 0, 0.23098, 0, -1.05139e-06, 40.3065, 0.802965, 5.57535)
 mesh = SubResource("BoxMesh_aufi4")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Fence"]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="World Objects/Fence"]
 transform = Transform3D(-1.00965e-08, 0, -23.9575, 0, 1, 0, 0.23098, 0, -1.04721e-06, 40.3065, 0.802965, 22.9878)
 mesh = SubResource("BoxMesh_aufi4")
 
-[node name="Farmland" type="Node3D" parent="."]
+[node name="Farmland" type="Node3D" parent="World Objects"]
+transform = Transform3D(-0.883283, -0.46884, -1.49012e-08, -0.428887, 0.808013, 0.403945, -0.189386, 0.356798, -0.914783, 0, 0, 0)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Farmland"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="World Objects/Farmland"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 11.8416, 10.3088, -1.90735e-06, 47.5314)
 mesh = SubResource("BoxMesh_4ei1s")
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Farmland"]
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="World Objects/Farmland"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 11.8416, 15.1465, -1.90735e-06, 47.5314)
 mesh = SubResource("BoxMesh_4ei1s")
 
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="Farmland"]
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="World Objects/Farmland"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 11.8416, 20.265, -1.90735e-06, 47.5314)
 mesh = SubResource("BoxMesh_4ei1s")
 
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Farmland"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="World Objects/Farmland"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 11.8416, 25.8269, -1.90735e-06, 47.5314)
 mesh = SubResource("BoxMesh_4ei1s")
 
-[node name="MeshInstance3D8" type="MeshInstance3D" parent="Farmland"]
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="World Objects/Farmland"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 11.8416, 31.2946, -1.90735e-06, 47.5314)
 mesh = SubResource("BoxMesh_4ei1s")
 
-[node name="MeshInstance3D9" type="MeshInstance3D" parent="Farmland"]
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="World Objects/Farmland"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 11.8416, 31.2946, -1.90735e-06, 47.5314)
 mesh = SubResource("BoxMesh_4ei1s")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Farmland"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="World Objects/Farmland"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 11.8416, 10.3088, -1.90735e-06, 61.7744)
 mesh = SubResource("BoxMesh_4ei1s")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Farmland"]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="World Objects/Farmland"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 11.8416, 15.1839, -1.90735e-06, 61.7744)
 mesh = SubResource("BoxMesh_4ei1s")
 
-[node name="MeshInstance3D10" type="MeshInstance3D" parent="Farmland"]
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="World Objects/Farmland"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 11.8416, 20.4515, -1.90735e-06, 61.7744)
 mesh = SubResource("BoxMesh_4ei1s")
 
-[node name="MeshInstance3D11" type="MeshInstance3D" parent="Farmland"]
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="World Objects/Farmland"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 11.8416, 25.901, -1.90735e-06, 61.7744)
 mesh = SubResource("BoxMesh_4ei1s")
 
-[node name="MeshInstance3D12" type="MeshInstance3D" parent="Farmland"]
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="World Objects/Farmland"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 11.8416, 31.523, -1.90735e-06, 61.7744)
 mesh = SubResource("BoxMesh_4ei1s")
 
-[node name="DirectionalLight3D" parent="." instance=ExtResource("2_gf5eb")]
-transform = Transform3D(-4.08414e-08, 0.356379, -0.934341, 1.55778e-08, 0.934341, 0.356379, 1, 8.88178e-16, -4.37114e-08, -1.08607, 27.2372, -2.58927)
-light_color = Color(0.996078, 1, 0.898039, 1)
-light_energy = 0.141
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_kyq1g")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, -0.967678, 0.252188, 0, -0.252188, -0.967678, -0.00385284, 67.5118, 3.71617)

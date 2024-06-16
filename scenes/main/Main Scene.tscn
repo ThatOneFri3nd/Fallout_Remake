@@ -31,7 +31,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.913894, 0)
 
 [node name="Camera" parent="CurrentLevel" instance=ExtResource("3_w3j88")]
 rotate_friction = 8.0
-camera_acceleration = 30.0
+camera_acceleration = 15.0
+max_camera_speed = 15.0
 camera_friction = 45.0
 
 [node name="ShadySands" parent="CurrentLevel" instance=ExtResource("4_yt2d4")]

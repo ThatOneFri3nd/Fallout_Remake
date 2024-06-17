@@ -25,7 +25,9 @@ func load_level(level_name: String):
 		level_instance = level_resource.instantiate()
 		CurrentLevel.add_child(level_instance)
 		player_instance = player_resource.instantiate()
+		CurrentLevel.add_child(player_instance)
 		camera_instance = camera_resource.instantiate()
+		CurrentLevel.add_child(camera_instance)
 		emit_signal("level_loaded")
 
 # Called when the node enters the scene tree for the first time.
@@ -38,6 +40,7 @@ func load_main_menu():
 	
 	if menu_resource:
 		main_menu_instance = menu_resource.instantiate()
+		menu.add_child(main_menu_instance)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

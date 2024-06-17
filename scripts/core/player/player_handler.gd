@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 @onready var player : Node3D = self
 @onready var navigation_agent := $NavigationAgent3D
+@onready var global_camera := get_node("../Camera")
 @export var movement_speed: float = 10
 @export var ray_length: float = 10000
 
@@ -15,9 +16,9 @@ func _process(delta):
 	if navigation_agent.is_navigation_finished():
 		return
 	
-	move_to_point(delta, movement_speed)
+	move_to_point(movement_speed)
 
-func move_to_point(delta, speed):
+func move_to_point(speed):
 	var target_position = navigation_agent.get_next_path_position()
 	var direction = global_position.direction_to(target_position)
 	
@@ -51,3 +52,4 @@ func move_player(interact_result):
 func _on_level_loaded():
 	var player_spawn: Vector3 = get_node("../PlayerSpawn").transform
 	player.position = player_spawn
+	global_camera.following_player = true

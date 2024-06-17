@@ -8,10 +8,14 @@ extends CharacterBody3D
 @export_category("Camera Movement")
 @export_range(0, 100, 0.1) var camera_acceleration: float = 15
 @export_range(0, 100, 0.1) var max_camera_speed: float = 50
+##How quickly the camera comes to a stop when letting go of all directions.
 @export_range(0, 100, 0.1) var camera_friction: float = 10
-##How much the cmaera movement is influenced by zoom, this affects both max speed and acceleration.
+##How much the camera movement is influenced by zoom, this affects both max speed and acceleration.
 @export_range(0, 100, 0.1) var zoom_influence: float = 10
+##If the player is close enough to the camera, how fast it will move to the player.
 @export_range(0, 100, 0.1) var snap_speed: float = 10
+##How far away the camera needs to be from the player to just cut directly to the player instead of moving smoothly.
+@export_range(0, 100, 0.1) var snap_distance: float = 10
 @export_category("Camera Zoom")
 @export_range(0, 100, 0.1) var min_zoom: float = 90
 @export_range(0, 100, 0.1) var max_zoom: float = 10
@@ -109,10 +113,13 @@ func linear_follow(a, b, delta: float):
 
 func snap_to_player(delta: float):
 	var target_position = player.position
-	var direction = global_position.direction_to(target_position)
-	var target_velocity: Vector3
-	
-	target_velocity = direction * snap_speed
+	var distance = position.distance_to(player.position)
 	
 	if following_player:
-		position = player.position
+		if distance >= snap_distance:
+			position = target_position
+		else:
+			position = lerp(position, target_position, snap_speed * delta)
+
+func _on_level_loaded():
+	following_player = true

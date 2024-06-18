@@ -14,6 +14,9 @@ func unload_level():
 	if (is_instance_valid(level_instance)):
 		level_instance.queue_free()
 	level_instance = null
+	if (is_instance_valid(main_menu_instance)):
+		main_menu_instance.queue_free()
+	main_menu_instance = null
 
 func load_level(level_name: String):
 	unload_level()

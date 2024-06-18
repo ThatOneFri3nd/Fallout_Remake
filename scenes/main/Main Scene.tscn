@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cctpt3gnwtu22"]
+[gd_scene load_steps=5 format=3 uid="uid://cctpt3gnwtu22"]
 
 [ext_resource type="Script" path="res://scripts/core/main/Main Scene.gd" id="1_8cgiu"]
+[ext_resource type="Script" path="res://scenes/main/SaveController.gd" id="2_d5kvl"]
+[ext_resource type="PackedScene" uid="uid://dd8eiw4julanr" path="res://scenes/main/camera.tscn" id="2_x27lb"]
+[ext_resource type="PackedScene" uid="uid://b1eovp444wan6" path="res://scenes/player/Player.tscn" id="3_vmc2d"]
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
@@ -22,3 +25,14 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="CurrentLevel" type="Node3D" parent="."]
+
+[node name="Camera" parent="CurrentLevel" instance=ExtResource("2_x27lb")]
+snap_distance = 52.5
+
+[node name="Player" parent="CurrentLevel" instance=ExtResource("3_vmc2d")]
+
+[node name="SaveController" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_d5kvl")

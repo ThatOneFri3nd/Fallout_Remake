@@ -1,9 +1,9 @@
 extends Control
 
-
+signal start_new_game
 
 func _on_new_game_pressed():
-	pass
+	emit_signal("start_new_game")
 
 
 func _on_load_game_pressed():

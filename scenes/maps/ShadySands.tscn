@@ -1,16 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://bc3ts7oesy4l3"]
+[gd_scene load_steps=20 format=3 uid="uid://bc3ts7oesy4l3"]
 
 [ext_resource type="Texture2D" uid="uid://nlbp2ktlnm4x" path="res://Art/2D/Temp Textures/Ground/3_diffuseOriginal.bmp" id="1_12xj0"]
 [ext_resource type="Material" uid="uid://dfeyo8ybjrb4t" path="res://materials/ShadySands.material" id="1_pifjc"]
 [ext_resource type="Texture2D" uid="uid://beak1ls2uayu4" path="res://Art/2D/Temp Textures/Ground/3_normal.bmp" id="2_oryl1"]
 [ext_resource type="Texture2D" uid="uid://clw5l0f286dcn" path="res://Art/2D/Temp Textures/Ground/3_ao.bmp" id="3_1ps14"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Skybox.gdshader" id="5_m4733"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f1ako"]
-albedo_color = Color(0, 1, 1, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_fgsc5"]
-material = SubResource("StandardMaterial3D_f1ako")
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_vka01"]
 vertices = PackedVector3Array(-203.616, 0.349835, -148.943, -203.616, 0.349835, 149.057, 189.134, 0.349835, 149.057, 189.134, 0.349835, -148.943)
@@ -56,19 +50,14 @@ sky = SubResource("Sky_s433p")
 [node name="ShadySands" type="Node3D"]
 
 [node name="PlayerSpawn" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05273, 0, 2.33778)
-
-[node name="PlayerStandIn" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85.562, 0.774419, -34.5362)
-mesh = SubResource("CapsuleMesh_fgsc5")
-skeleton = NodePath("")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.1183, 0, -35.862)
 
 [node name="Ground" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 0)
 navigation_mesh = SubResource("NavigationMesh_vka01")
 
 [node name="Ground" type="MeshInstance3D" parent="Ground"]
-transform = Transform3D(565.478, 0, 0, 0, 0.656368, 0, 0, 0, 504.109, -7.25601, -0.321981, 0)
+transform = Transform3D(565.478, 0, 0, 0, 0.656368, 0, 0, 0, 504.109, 0, -0.322, 0)
 material_override = SubResource("StandardMaterial3D_qkm0o")
 mesh = SubResource("PlaneMesh_3lspm")
 skeleton = NodePath("../..")

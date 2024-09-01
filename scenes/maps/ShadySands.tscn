@@ -50,7 +50,7 @@ sky = SubResource("Sky_s433p")
 [node name="ShadySands" type="Node3D"]
 
 [node name="PlayerSpawn" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.1183, 0, -35.862)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85.2092, 0, -39.5962)
 
 [node name="Ground" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 0)

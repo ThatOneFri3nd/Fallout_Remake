@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cctpt3gnwtu22"]
 
-[ext_resource type="Script" path="res://scripts/core/main/Main Scene.gd" id="1_8cgiu"]
-[ext_resource type="Script" path="res://scenes/main/SaveController.gd" id="2_d5kvl"]
+[ext_resource type="Script" uid="uid://bpaw2dp4jkt1f" path="res://scripts/core/main/Main Scene.gd" id="1_8cgiu"]
+[ext_resource type="Script" uid="uid://dj504gji0jjr3" path="res://scenes/main/SaveController.gd" id="2_d5kvl"]
 [ext_resource type="PackedScene" uid="uid://dd8eiw4julanr" path="res://scenes/main/camera.tscn" id="2_x27lb"]
 [ext_resource type="PackedScene" uid="uid://b1eovp444wan6" path="res://scenes/player/Player.tscn" id="3_vmc2d"]
 [ext_resource type="PackedScene" uid="uid://bc3ts7oesy4l3" path="res://scenes/maps/ShadySands.tscn" id="5_hpkx8"]

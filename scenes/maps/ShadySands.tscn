@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://dfeyo8ybjrb4t" path="res://materials/ShadySands.material" id="1_pifjc"]
 [ext_resource type="Texture2D" uid="uid://beak1ls2uayu4" path="res://Art/2D/Temp Textures/Ground/3_normal.bmp" id="2_oryl1"]
 [ext_resource type="Texture2D" uid="uid://clw5l0f286dcn" path="res://Art/2D/Temp Textures/Ground/3_ao.bmp" id="3_1ps14"]
-[ext_resource type="Shader" path="res://scenes/Shaders/Skybox.gdshader" id="5_m4733"]
+[ext_resource type="Shader" uid="uid://bdkgqaak11xf1" path="res://scenes/Shaders/Skybox.gdshader" id="5_m4733"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_vka01"]
 vertices = PackedVector3Array(-203.616, 0.349835, -148.943, -203.616, 0.349835, 149.057, 189.134, 0.349835, 149.057, 189.134, 0.349835, -148.943)
